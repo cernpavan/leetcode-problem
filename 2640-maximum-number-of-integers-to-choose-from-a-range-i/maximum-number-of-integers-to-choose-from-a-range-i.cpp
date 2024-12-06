@@ -1,7 +1,8 @@
 class Solution {
 public:
     int maxCount(vector<int>& banned, int n, int maxSum) {
-        // cin.tie(null);
+        ios::sync_with_stdio(false);
+        cin.tie(nullptr);
 
         map<int,int> mpps;
         for(auto i:banned){
