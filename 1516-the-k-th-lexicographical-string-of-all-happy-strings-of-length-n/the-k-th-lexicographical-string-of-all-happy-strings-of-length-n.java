@@ -1,31 +1,39 @@
 class Solution {
     public String getHappyString(int n, int k) {
+        // Calculate the total number of happy strings of length n
         int totalWords = 3 * (int) Math.pow(2, n - 1);
-        if (k > totalWords) return ""; // If k is out of range
         
-        StringBuilder result = new StringBuilder();
-        char[] letters = {'a', 'b', 'c'};
+        // If k is greater than the total possible strings, return an empty string
+        if (k > totalWords) return ""; 
         
-        k--; // Convert k to 0-based index
-        int groupSize = totalWords / 3;
-        int index = k / groupSize;
-        result.append(letters[index]); // First character
+        StringBuilder result = new StringBuilder(); // To store the final happy string
         
+        char[] letters = {'a', 'b', 'c'}; // The allowed characters
+        
+        k--; // Convert k to 0-based index for easier calculations
+        int groupSize = totalWords / 3; // Determines the number of strings starting with each letter
+        int index = k / groupSize; // Find which letter should be the first character
+        result.append(letters[index]); // Append the first character
+        
+        // Iterate to determine the rest of the characters in the string
         for (int i = 1; i < n; i++) {
-            k %= groupSize; 
-            groupSize /= 2; // Reduce group size for next character
+            k %= groupSize; // Update k for the next character selection
+            groupSize /= 2; // Reduce the group size for the next character
             
+            // Get the last character added to the result
             char lastChar = result.charAt(result.length() - 1);
+            
+            // Define the next possible characters (ensuring no repetition)
             char firstOption = (lastChar == 'a') ? 'b' : 'a';
             char secondOption = (lastChar == 'c') ? 'b' : 'c';
             
+            // Choose the next character based on the updated k value
             result.append((k / groupSize == 0) ? firstOption : secondOption);
         }
         
-        return result.toString();
+        return result.toString(); // Return the k-th lexicographical happy string
     }
 }
-
 
 
 
